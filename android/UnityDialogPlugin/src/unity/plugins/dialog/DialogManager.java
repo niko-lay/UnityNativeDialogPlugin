@@ -67,10 +67,22 @@ public class DialogManager {
 					}
 				};
 				
+				DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener (){
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						// TODO Auto-generated method stub
+						log("defuse " + id + ":" + msg);
+						UnityPlayer.UnitySendMessage("DialogManager", "OnCancel", String.valueOf(id));
+						_dialogs.delete(id);
+					}
+				};
+				
 				AlertDialog dialog = new AlertDialog.Builder(a)
 				.setMessage(msg)
 				.setNegativeButton(cancelLabel, negativeListener)
 				.setPositiveButton(decideLabel, positiveListener)
+				.setCancelable(true)
+				.setOnCancelListener(cancelListener)
 				.show();
 				
 				_dialogs.put(Integer.valueOf(id), dialog);
@@ -108,11 +120,23 @@ public class DialogManager {
 					}
 				};
 				
+				DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener (){
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						// TODO Auto-generated method stub
+						log("defuse " + id + ":" + msg);
+						UnityPlayer.UnitySendMessage("DialogManager", "OnCancel", String.valueOf(id));
+						_dialogs.delete(id);
+					}
+				};
+				
 				AlertDialog dialog = new AlertDialog.Builder(a)
 				.setTitle(title)
 				.setMessage(msg)
 				.setNegativeButton(cancelLabel, negativeListener)
 				.setPositiveButton(decideLabel, positiveListener)
+				.setCancelable(true)
+				.setOnCancelListener(cancelListener)
 				.show();
 				
 				_dialogs.put(Integer.valueOf(id), dialog);
